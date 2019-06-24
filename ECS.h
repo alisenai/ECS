@@ -1,14 +1,31 @@
-/*                     */
-/*         ECS         */
-/* By: Calin Gavriliuc */
-
+/*
+                                  /    \
+                          )      ((   ))     (
+ _                       /|\      ))_((     /|\                        _
+(@)                     / | \    (/\|/\)   / | \                      (@)
+| | ----------------------(  )---\\''//--(  )-------------------------|-|
+|-|                        vvv   (o o)   vvv                          | |
+| |                              `\Y/'                                |-|
+| |                         _____ _____ _____                         | |
+|-|                        |   __|     |   __|                        |-|
+| |                        |   __|   --|__   |                        | |
+|-|                        |_____|_____|_____|                        |-|
+| |                                                                   |-|
+|_|___________________________________________________________________| |
+(@)/             |   /\ /         ( (       \ /\   |                 \(@)
+                 | /   V           \ \       V   \ |
+                 |/                 ) )           \|
+                                    \ /
+                                     V
+By: Calin Gavriliuc
+*/
 
 #ifndef ECS_H
 #define ECS_H
 
-#include <typeindex> //! std::type_index type
-#include <iostream>  //! std:cerr stream
-#include <map>       //! std::map
+#include <typeindex>     //! std::type_index type
+#include <iostream>      //! std:cerr stream
+#include <unordered_map>           //! std::unordered_map
 
 //! Method the component system manager will use to index into it's data storage
 #define TYPE_ID_RES typeid(ComponentType)
@@ -21,10 +38,67 @@
 //! Uses pack expansion for compile-time variadic template expansion
 #define PACK_EXPAND(function, args, a...) (int[]) {0, (function<args>(a), 0)...}
 
+//! Entity class, to be derived from when creating any entities
+class Entity
+{
+public:
+    /*!
+     * \brief Non-explicit constructor for an entity, given an ID
+     * \param id ID of the entity
+     */
+    Entity(ID_TYPE id) : _id(id)
+    {}
+
+    /*!
+     * \brief Returns the ID of the entity
+     * \return ID of the entity
+     */
+    ID_TYPE GetId()
+    { return _id; }
+
+    /*!
+     * \brief Non-explicit conversion operator for an entity
+     * \return ID of the entity
+     */
+    operator ID_TYPE()
+    { return _id; }
+
+    /*!
+     * \brief Virtual, defaulted, destructor
+     */
+    virtual ~Entity() = default;
+
+private:
+    //! Entity ID
+    ID_TYPE _id;
+};
+
 //! Pure virtual base component class, to be derived from when creating a component
 class Component
 {
 public:
+    /*!
+     * \brief Constructor for a component
+     * \param parentID ID of the parent Entity
+     * \attention If Parent ID is -1, something might have gone wrong (default parent ID)
+     */
+    Component()
+    { _parentID = -1; }
+
+    /*!
+     * \brief Returns the parent ID of the component
+     * \return Parent ID of the component
+     */
+    ID_TYPE GetParentID()
+    { return _parentID; }
+
+    /*!
+     * \brief Sets the component's parent ID
+     * \param parentID Component's parent ID
+     */
+    void SetParentID(ID_TYPE parentID)
+    { _parentID = parentID; }
+
     /*!
      * \brief Pure virtual update function. Required to be implemented in derived classes
      * \param dt Delta time / time since the last tick, to be used when updating
@@ -32,9 +106,13 @@ public:
     virtual void Update(float dt) = 0;
 
     /*!
-     * \brief Pure virtual destructor
+     * \brief Virtual, defaulted, destructor
      */
     virtual ~Component() = default;
+
+private:
+    //! Parent entity ID
+    ID_TYPE _parentID;
 };
 
 /*!
@@ -67,7 +145,11 @@ public:
         RemoveComponent(id);
         // Add the component to the requested ID
         if (component)
+        {
+            // Set the parent ID
+            component->SetParentID(id);
             _components[id] = component;
+        }
     }
 
     /*!
@@ -120,7 +202,7 @@ public:
 
 private:
     //! Key:ID, Value:Component Pointer
-    std::map<ID_TYPE, ComponentType *> _components;
+    std::unordered_map<ID_TYPE, ComponentType *> _components;
 };
 
 /*!
@@ -284,7 +366,7 @@ private:
     }
 
     //! Component systems handled by this manager
-    std::map<std::type_index, void *> componentSystems;
+    std::unordered_map<std::type_index, void *> componentSystems;
 };
 
 #endif //ECS_H
