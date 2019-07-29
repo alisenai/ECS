@@ -23,9 +23,9 @@ By: Calin Gavriliuc
 #ifndef ECS_H
 #define ECS_H
 
+#include <unordered_map> //! std::unordered_map
 #include <typeindex>     //! std::type_index type
 #include <iostream>      //! std:cerr stream
-#include <unordered_map>           //! std::unordered_map
 
 //! Method the component system manager will use to index into it's data storage
 #define TYPE_ID_RES typeid(ComponentType)
