@@ -12,7 +12,7 @@
 #
 import os
 import sys
-import sphinx_bootstrap_theme
+# import sphinx_bootstrap_theme
 sys.path.insert(0, os.path.abspath('.'))
 
 
@@ -26,6 +26,9 @@ html_show_sphinx = False
 author = 'Calin Gavriliuc'
 
 html_show_sourcelink = False
+
+master_doc = "index"
+
 
 
 # The full version, including alpha/beta/rc tags
@@ -54,72 +57,72 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'flask'
-html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+# html_theme = 'bootstrap'
+# html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 
 
-html_theme_options = {
-    # Navigation bar title. (Default: ``project`` value)
-    'navbar_title': "Alien ECS",
+# html_theme_options = {
+#     # Navigation bar title. (Default: ``project`` value)
+#     'navbar_title': "Alien ECS",
 
-    # Tab name for entire site. (Default: "Site")
-    'navbar_site_name': "Alien ECS",
+#     # Tab name for entire site. (Default: "Site")
+#     'navbar_site_name': "Alien ECS",
 
-    # Render the current pages TOC in the navbar. (Default: true)
-    'navbar_pagenav': True,
+#     # Render the current pages TOC in the navbar. (Default: true)
+#     'navbar_pagenav': True,
 
-    # Tab name for the current pages TOC. (Default: "Page")
-    'navbar_pagenav_name': "Page",
+#     # Tab name for the current pages TOC. (Default: "Page")
+#     'navbar_pagenav_name': "Page",
 
-    # Global TOC depth for "site" navbar tab. (Default: 1)
-    # Switching to -1 shows all levels.
-    'globaltoc_depth': 2,
+#     # Global TOC depth for "site" navbar tab. (Default: 1)
+#     # Switching to -1 shows all levels.
+#     'globaltoc_depth': 2,
 
-    # Include hidden TOCs in Site navbar?
-    #
-    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
-    # non-hidden ``toctree`` directives in the same page, or else the build
-    # will break.
-    #
-    # Values: "true" (default) or "false"
-    'globaltoc_includehidden': "true",
+#     # Include hidden TOCs in Site navbar?
+#     #
+#     # Note: If this is "false", you cannot have mixed ``:hidden:`` and
+#     # non-hidden ``toctree`` directives in the same page, or else the build
+#     # will break.
+#     #
+#     # Values: "true" (default) or "false"
+#     'globaltoc_includehidden': "true",
 
-    # HTML navbar class (Default: "navbar") to attach to <div> element.
-    # For black navbar, do "navbar navbar-inverse"
-    'navbar_class': "navbar",
+#     # HTML navbar class (Default: "navbar") to attach to <div> element.
+#     # For black navbar, do "navbar navbar-inverse"
+#     'navbar_class': "navbar",
 
-    # Fix navigation bar to top of page?
-    # Values: "true" (default) or "false"
-    'navbar_fixed_top': "true",
+#     # Fix navigation bar to top of page?
+#     # Values: "true" (default) or "false"
+#     'navbar_fixed_top': "true",
 
-    # Location of link to source.
-    # Options are "nav" (default), "footer" or anything else to exclude.
-    'source_link_position': "nav",
+#     # Location of link to source.
+#     # Options are "nav" (default), "footer" or anything else to exclude.
+#     'source_link_position': "nav",
 
-    'navbar_links': [
-        ("Home", "https://www.nekeko.com", True)
-    ],
+#     'navbar_links': [
+#         ("Home", "https://www.nekeko.com", True)
+#     ],
 
-    # Bootswatch (http://bootswatch.com/) theme.
-    #
-    # Options are nothing (default) or the name of a valid theme
-    # such as "cosmo" or "sandstone".
-    #
-    # The set of valid themes depend on the version of Bootstrap
-    # that's used (the next config option).
-    #
-    # Currently, the supported themes are:
-    # - Bootstrap 2: https://bootswatch.com/2
-    # - Bootstrap 3: https://bootswatch.com/3
-    # 'bootswatch_theme': "paper",
-    # 'bootswatch_theme': "readable",
-    'bootswatch_theme': "paper",
+#     # Bootswatch (http://bootswatch.com/) theme.
+#     #
+#     # Options are nothing (default) or the name of a valid theme
+#     # such as "cosmo" or "sandstone".
+#     #
+#     # The set of valid themes depend on the version of Bootstrap
+#     # that's used (the next config option).
+#     #
+#     # Currently, the supported themes are:
+#     # - Bootstrap 2: https://bootswatch.com/2
+#     # - Bootstrap 3: https://bootswatch.com/3
+#     # 'bootswatch_theme': "paper",
+#     # 'bootswatch_theme': "readable",
+#     'bootswatch_theme': "paper",
 
-    # Choose Bootstrap version.
-    # Values: "3" (default) or "2" (in quotes)
-    'bootstrap_version': "3",
-}
+#     # Choose Bootstrap version.
+#     # Values: "3" (default) or "2" (in quotes)
+#     'bootstrap_version': "3",
+# }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
