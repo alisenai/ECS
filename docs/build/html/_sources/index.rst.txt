@@ -1,4 +1,4 @@
-Alien ECS Documentation
+ECS Documentation
 =======================
 Getting Started
 ---------------
@@ -30,7 +30,10 @@ The bare minimum to get you started can be found below.
 
         // Update Components
         for (int i = 0; i < 10; ++i)
-            componentSystemManager.UpdateSystems(1/60.0f);
+            componentSystemManager.UpdateSystems(1 / 60.0f);
+
+        // Remove a Component
+        componentSystemManager.RemoveComponent<CustomComponent>(0);
 
         return 0;
     }
@@ -58,9 +61,7 @@ It is important to inherit from the **ComponentSystemInterface** class, so any c
 
     template<>
     class ComponentSystem<CustomComponent> : public ComponentSystemInterface<CustomComponent>
-    {
-        /* Custom system code */
-    };
+    { /* Custom system code */ };
 
 .. note:: It is important that the file defining the **ComponentSystemManager** object can see your template specializations.
 
@@ -82,3 +83,23 @@ As seen below, the class will manage the user defined **CustomComponentA** and *
 ::
 
     ComponentSystemManager<CustomComponentA, CustomComponentB> componentSystemManager;
+
+Adding a Component to the Component System
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The **AddComponent** function:
+::
+
+    AddComponent(id, component)
+
++------------------------------------------------------+
+|**id**        : Entity ID to add the component to     |
++------------------------------------------------------+
+|**component** : Component pointer to add to the entity|
++------------------------------------------------------+
+
+Adding a user-defined **Component** to the **ComponentSystemManager**:
+::
+
+    componentSystemManager.AddComponent(0, new CustomComponent());
+
